@@ -1,0 +1,92 @@
+/* Estilos para o formulário */
+.categoria-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+
+
+/* Fim estilos para o formulário */
+
+
+/* Estilo para imagens */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Estilos para o menu de navegação */
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 0 10px;
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+    color: #1b2581;
+    /* Cor do texto do link */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+a:hover {
+    color: #19144d;
+    /* Cor do texto do link ao passar o mouse */
+}
+
+/* Estilos para o título */
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Estilos para o subtítulo */
+.subtitle {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+}
