@@ -1,47 +1,47 @@
 <?php
 
-include_once 'app/models/Categoria.php';
+include_once 'app/models/Servico.php';
 include_once 'app/models/Database.php';
 
-class CategoriaController
+class ServicoController
 {
 
-    public function obterTodasCategorias()
+    public function obterTodosServicos()
     {
         $db = new Database();
         $conn = $db->connect();
 
-        $categorias = array();
+        $servicos = array();
 
-        $query = "SELECT * FROM categoria";
+        $query = "SELECT * FROM servico";
         $result = $conn->query($query);
 
         if ($result) {  // Verificar se a consulta foi bem-sucedida
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $categoria = new Categoria($row['idcategoria'], $row['nome'], $row['descricao'], $row['logo']);
-                    $categorias[] = $categoria;
+                    $servico = new Servico($row['idservico'], $row['nome'], $row['descricao'], $row['logo'], $row['preco'], $row['tempo']);
+                    $servicos[] = $servico;
                 }
             } else {
-                echo "Nenhuma categoria encontrada.";
+                echo "Nenhum serviço encontrado.";
             }
         } else {
             echo "Erro na consulta: " . $conn->error;
         }
 
         $conn->close();
-        return $categorias;
+        return $servicos;
     }
 
 
-    public static function obterCategoriaPorId($id)
+    public static function obterServicoPorId($id)
     {
 
         $db = new Database();
         $conn = $db->connect();
 
         // Prepara a consulta SQL
-        $stmt = $conn->prepare("SELECT * FROM categoria WHERE idcategoria = ?");
+        $stmt = $conn->prepare("SELECT * FROM servico WHERE idservico = ?");
         $stmt->bind_param("i", $id);
 
         try {
@@ -57,9 +57,9 @@ class CategoriaController
             // Obtém a primeira linha do resultado
             $row = $result->fetch_assoc();
 
-            // Crie um objeto Categoria com os dados
-            $categoria = new Categoria($row['idcategoria'], $row['nome'], $row['descricao'], $row['logo']);
-            return $categoria;
+            // Crie um objeto Serviço com os dados
+            $servico = new Servico($row['idservico'], $row['nome'], $row['descricao'], $row['logo'], $row['preco'], $row['tempo']);
+            return $servico;
         } else {
             echo "Erro na consulta: " . $conn->error;
         }

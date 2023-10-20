@@ -67,7 +67,7 @@ class CategoriaView
                     <label for='logo'>Logo:</label>
                     <input type='file' id='logo' name='logo' class='form-control' accept='image/*' value='{$categoria->getLogo()}'>
                 </div>
-                <button type='submit' class='btn btn-primary'>Cadastrar</button>
+                <button type='submit' class='btn btn-primary'>Atualizar</button>
             </form>
         ";
     }

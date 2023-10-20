@@ -14,7 +14,7 @@
             <nav>
                 <ul>
                     <li><a href="categoria.php">Categorias</a></li>
-                    <li><a href="#">Serviços</a></li>
+                    <li><a href="servico.php">Serviços</a></li>
                     <!-- Adicione mais links de navegação conforme necessário -->
                 </ul>
             </nav>
