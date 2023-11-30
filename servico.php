@@ -7,7 +7,7 @@ include_once 'app/controllers/ServicoController.php';
 include_once 'includes/header.php';
 
 ?>
-<div class="title">Serviços</div>
+<div class="title"><h1>Serviços</h1></div>
 
 <?php
 // Instanciar classes
@@ -22,9 +22,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = null;
         $nome = $_POST['nome'];
         $descricao = $_POST['descricao'];
-        $logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
+        //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
         $preco = $_POST['preco'];
         $tempo = $_POST['tempo'];
+
+        // Verifica se um arquivo de imagem foi enviado
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            // Define o diretório de destino onde a imagem será salva
+            $diretorioDestino = __DIR__ . '/includes/img/';
+
+            // Obtém o nome do arquivo enviado
+            $nomeArquivo = $_FILES['logo']['name'];
+
+            // Move o arquivo para o diretório de destino
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $diretorioDestino . $nomeArquivo)) {
+                // O arquivo foi carregado com sucesso
+                //echo 'Imagem carregada com sucesso.';
+                $urlImagem = '/includes/img/' . $nomeArquivo; 
+                $logo = $urlImagem;
+                // Agora, você pode salvar o nome do arquivo no banco de dados ou realizar outras ações necessárias.
+            } else {
+                // Ocorreu um erro ao mover o arquivo
+                echo 'Erro ao carregar a imagem.';
+            }
+        } else {
+            // Nenhum arquivo de imagem enviado
+            //echo 'Nenhuma imagem foi enviada.';
+            $logo = null;
+        }
 
         // Criação de uma instância da classe Serviço com os dados do formulário
         $servico = new Servico($id, $nome, $descricao, $logo, $preco, $tempo);
@@ -42,9 +67,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id']; // ID do serviço a ser atualizada
         $nome = $_POST['nome'];
         $descricao = $_POST['descricao'];
-        $logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
+        //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
         $preco = $_POST['preco'];
         $tempo = $_POST['tempo'];
+
+        // Verifica se um arquivo de imagem foi enviado
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            // Define o diretório de destino onde a imagem será salva
+            $diretorioDestino = __DIR__ . '/includes/img/';
+
+            // Obtém o nome do arquivo enviado
+            $nomeArquivo = $_FILES['logo']['name'];
+
+            // Move o arquivo para o diretório de destino
+            if (move_uploaded_file($_FILES['logo']['tmp_name'], $diretorioDestino . $nomeArquivo)) {
+                // O arquivo foi carregado com sucesso
+                //echo 'Imagem carregada com sucesso.';
+                $urlImagem = '/includes/img/' . $nomeArquivo; 
+                $logo = $urlImagem;
+                // Agora, você pode salvar o nome do arquivo no banco de dados ou realizar outras ações necessárias.
+            } else {
+                // Ocorreu um erro ao mover o arquivo
+                echo 'Erro ao carregar a imagem.';
+            }
+        } else {
+            // Nenhum arquivo de imagem enviado
+            //echo 'Nenhuma imagem foi enviada.';
+            $logo = null;
+        }
 
         // Criação de uma instância da classe Serviço com os dados do formulário
         $servico = new Servico($id, $nome, $descricao, $logo, $preco, $tempo);

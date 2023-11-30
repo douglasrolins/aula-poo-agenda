@@ -38,6 +38,7 @@ class ServicoView
     // Método para exibir a lista de serviços em uma tabela
     public function exibirListaServicos($servicos)
     {
+        $base_url="http://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/';
         echo "<div style='place-items: center; display: grid;' >";
         echo "<button type='submit' class='btn btn-primary' onclick=\"window.location.href='servico.php?action=new'\">Inserir Serviço</button>";
         echo "<h3>Lista de Serviços</h3>";
@@ -47,7 +48,7 @@ class ServicoView
             echo "<tr>";
             echo "<td>{$servico->getNome()}</td>";
             echo "<td>{$servico->getDescricao()}</td>";
-            echo "<td>{$servico->getLogo()}</td>";
+            echo "<td> <img src={$base_url}{$servico->getLogo()} width=30px> </td>";
             echo "<td>{$servico->getPreco()}</td>";
             echo "<td>{$servico->getTempo()}</td>";
             echo "<td><a href='servico.php?action=edit&id={$servico->getId()}'>Editar</a> <a href='servico.php?action=delete&id={$servico->getId()}' onclick='return confirmarExclusao()'>Apagar</a></td>";

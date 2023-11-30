@@ -7,7 +7,7 @@ include_once 'app/controllers/CategoriaController.php';
 include_once 'includes/header.php';
 
 ?>
-<div class="title">Categorias</div>
+<div class="title"><h1>Categorias</h1></div>
 
 <?php
 // Instanciar classes
