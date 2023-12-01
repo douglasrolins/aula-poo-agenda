@@ -2,23 +2,21 @@
 
 include_once 'Database.php';
 
-class Servico
+class Empresa
 {
     private $id;
     private $nome;
-    private $logo;
-    private $valor;
-    private $tempo;
-    private $empresa_id;
+    private $cnpj;
+    private $endereco;
+    private $telefone;
 
-    public function __construct($id, $nome, $logo, $valor, $tempo, $empresa_id)
+    public function __construct($id, $nome, $cnpj, $endereco, $telefone)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->logo = $logo;
-        $this->valor = $valor;
-        $this->tempo = $tempo;
-        $this->empresa_id = $empresa_id;
+        $this->cnpj = $cnpj;
+        $this->endereco = $endereco;
+        $this->telefone = $telefone;
     }
 
     // Getters e Setters para os atributos
@@ -43,44 +41,34 @@ class Servico
         $this->nome = $nome;
     }
 
-    public function getLogo()
+    public function getCnpj()
     {
-        return $this->logo;
+        return $this->cnpj;
     }
 
-    public function setLogo($logo)
+    public function setCnpj($cnpj)
     {
-        $this->logo = $logo;
+        $this->cnpj = $cnpj;
     }
 
-    public function getValor()
+    public function getEndereco()
     {
-        return $this->valor;
+        return $this->endereco;
     }
 
-    public function setValor($valor)
+    public function setEndereco($endereco)
     {
-        $this->valor = $valor;
+        $this->endereco = $endereco;
     }
 
-    public function getTempo()
+    public function getTelefone()
     {
-        return $this->tempo;
+        return $this->telefone;
     }
 
-    public function setTempo($tempo)
+    public function setTelefone($telefone)
     {
-        $this->tempo = $tempo;
-    }
-
-    public function getEmpresaId()
-    {
-        return $this->empresa_id;
-    }
-
-    public function setEmpresaId($empresa_id)
-    {
-        $this->empresa_id = $empresa_id;
+        $this->telefone = $telefone;
     }
 
     // Métodos para cadastro
@@ -91,8 +79,8 @@ class Servico
         $conn = $db->connect();
 
         // Prepara a consulta SQL
-        $stmt = $conn->prepare("INSERT INTO servico (nome, tempo, valor, logo, empresa_id) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sidsi", $this->nome, $this->tempo, $this->valor, $this->logo, $this->empresa_id);
+        $stmt = $conn->prepare("INSERT INTO empresa (nome, cnpj, endereco, telefone) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $this->nome, $this->cnpj, $this->endereco, $this->telefone);
 
         // Executa a consulta
         if ($stmt->execute()) {
@@ -114,8 +102,8 @@ class Servico
         $conn = $db->connect();
 
         // Prepara a consulta SQL
-        $stmt = $conn->prepare("UPDATE servico SET nome = ?, logo = ?, valor = ?, tempo = ?, empresa_id = ? WHERE id = ?");
-        $stmt->bind_param("ssdiii", $this->nome, $this->logo, $this->valor, $this->tempo, $this->empresa_id, $this->id);
+        $stmt = $conn->prepare("UPDATE empresa SET nome = ?, cnpj = ?, endereco = ?, telefone = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $this->nome, $this->cnpj, $this->endereco, $this->telefone, $this->id);
 
         // Executa a consulta
         if ($stmt->execute()) {
@@ -137,7 +125,7 @@ class Servico
         $conn = $db->connect();
 
         // Prepara a consulta SQL
-        $stmt = $conn->prepare("DELETE FROM servico WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM empresa WHERE id = ?");
         $stmt->bind_param("i", $this->id);
 
         // Executa a consulta

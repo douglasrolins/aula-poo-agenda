@@ -16,7 +16,8 @@
             <img  src="includes\img\logo_app.png" alt="Logo App">
             <nav>
                 <ul>
-                    <li><a href="categoria.php">Categorias</a></li>
+                    <li><a href="empresa.php">Empresas</a></li>
+                    <!-- <li><a href="categoria.php">Categorias</a></li> -->
                     <li><a href="servico.php">Serviços</a></li>
                     <!-- Adicione mais links de navegação conforme necessário -->
                 </ul>

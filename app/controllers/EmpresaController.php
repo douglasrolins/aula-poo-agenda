@@ -1,47 +1,47 @@
 <?php
 
-include_once 'app/models/Servico.php';
+include_once 'app/models/Empresa.php';
 include_once 'app/models/Database.php';
 
-class ServicoController
+class EmpresaController
 {
 
-    public function obterTodosServicos()
+    public function obterTodasEmpresas()
     {
         $db = new Database();
         $conn = $db->connect();
 
-        $servicos = array();
+        $empresas = array();
 
-        $query = "SELECT * FROM servico";
+        $query = "SELECT * FROM empresa";
         $result = $conn->query($query);
 
         if ($result) {  // Verificar se a consulta foi bem-sucedida
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $servico = new Servico($row['id'], $row['nome'], $row['logo'], $row['valor'], $row['tempo'], $row['empresa_id']);
-                    $servicos[] = $servico;
+                    $empresa = new Empresa($row['id'], $row['nome'], $row['cnpj'], $row['endereco'], $row['telefone']);
+                    $empresas[] = $empresa;
                 }
             } else {
-                echo "Nenhum serviço encontrado.";
+                echo "Nenhuma empresa encontrado.";
             }
         } else {
             echo "Erro na consulta: " . $conn->error;
         }
 
         $conn->close();
-        return $servicos;
+        return $empresas;
     }
 
 
-    public static function obterServicoPorId($id)
+    public static function obterEmpresaPorId($id)
     {
 
         $db = new Database();
         $conn = $db->connect();
 
         // Prepara a consulta SQL
-        $stmt = $conn->prepare("SELECT * FROM servico WHERE id = ?");
+        $stmt = $conn->prepare("SELECT * FROM empresa WHERE id = ?");
         $stmt->bind_param("i", $id);
 
         try {
@@ -57,9 +57,9 @@ class ServicoController
             // Obtém a primeira linha do resultado
             $row = $result->fetch_assoc();
 
-            // Crie um objeto Serviço com os dados
-            $servico = new Servico($row['id'], $row['nome'], $row['logo'], $row['valor'], $row['tempo'], $row['empresa_id']);
-            return $servico;
+            // Crie um objeto Empresa com os dados
+            $empresa = new Empresa($row['id'], $row['nome'], $row['cnpj'], $row['endereco'], $row['telefone']);
+            return $empresa;
         } else {
             echo "Erro na consulta: " . $conn->error;
         }

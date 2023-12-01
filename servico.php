@@ -3,6 +3,8 @@ include_once 'app/models/Servico.php';
 include_once 'app/views/ServicoView.php';
 include_once 'app/controllers/ServicoController.php';
 
+include_once 'app/controllers/EmpresaController.php';
+
 // Inclui o cabeçalho
 include_once 'includes/header.php';
 
@@ -21,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Captura dos dados do formulário
         $id = null;
         $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
         //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
-        $preco = $_POST['preco'];
+        $valor = $_POST['valor'];
         $tempo = $_POST['tempo'];
+        $empresa_id = $_POST['empresa_id'];
 
         // Verifica se um arquivo de imagem foi enviado
         if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
@@ -52,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Criação de uma instância da classe Serviço com os dados do formulário
-        $servico = new Servico($id, $nome, $descricao, $logo, $preco, $tempo);
+        $servico = new Servico($id, $nome, $logo, $valor, $tempo, $empresa_id);
 
         // Tenta cadastrar o servico
         if ($servico->cadastrar()) {
@@ -66,10 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Captura dos dados do formulário
         $id = $_POST['id']; // ID do serviço a ser atualizada
         $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
         //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
-        $preco = $_POST['preco'];
+        $valor = $_POST['valor'];
         $tempo = $_POST['tempo'];
+        $empresa_id = $_POST['empresa_id'];
 
         // Verifica se um arquivo de imagem foi enviado
         if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
@@ -97,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Criação de uma instância da classe Serviço com os dados do formulário
-        $servico = new Servico($id, $nome, $descricao, $logo, $preco, $tempo);
+        $servico = new Servico($id, $nome, $logo, $valor, $tempo, $empresa_id);
 
         // Tenta atualizar o serviço
         if ($servico->atualizar()) {
@@ -113,14 +115,18 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($action) {
     case 'new':
-        $servicoView->exibirFormularioCadastro();
+        $empresaController = new EmpresaController();
+        $empresas = $empresaController->obterTodasEmpresas();
+        $servicoView->exibirFormularioCadastro($empresas);
         break;
 
     case 'edit':
         if (isset($_GET['id'])) {
             $servicoId = $_GET['id'];
             $servico = $servicoController->obterServicoPorId($servicoId);
-            $servicoView->exibirFormularioEdicao($servico);
+            $empresaController = new EmpresaController();
+            $empresas = $empresaController->obterTodasEmpresas();
+            $servicoView->exibirFormularioEdicao($servico,$empresas);
         } else {
             echo "ID do serviço não especificado.";
         }
