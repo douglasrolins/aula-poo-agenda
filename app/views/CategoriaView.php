@@ -7,22 +7,22 @@ class CategoriaView
     {
         // HTML para o formulário de cadastro
         echo "
-        <h3 class='subtitle'>Nova Categoria</h3>
-        <form action='categoria.php' method='post' enctype='multipart/form-data' class='categoria-form'>
+        <h3>Nova Categoria</h3>
+        <form action='categoria.php' method='post' enctype='multipart/form-data'>
             <input type='hidden' name='action' value='new'>
-            <div class='form-group'>
+            <div>
                 <label for='nome'>Nome:</label>
-                <input type='text' id='nome' name='nome' class='form-control' required>
+                <input type='text' id='nome' name='nome' required>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='descricao'>Descrição:</label>
-                <textarea id='descricao' name='descricao' class='form-control' required></textarea>
+                <textarea id='descricao' name='descricao' required></textarea>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='logo'>Logo:</label>
-                <input type='file' id='logo' name='logo' class='form-control' accept='image/*'>
+                <input type='file' id='logo' name='logo' accept='image/*'>
             </div>
-            <button type='submit' class='btn btn-primary'>Cadastrar</button>
+            <button type='submit'>Cadastrar</button>
         </form>
         ";
     }
@@ -31,7 +31,7 @@ class CategoriaView
     public function exibirListaCategorias($categorias)
     {
         echo "<div style='place-items: center; display: grid;' >";
-        echo "<button type='submit' class='btn btn-primary' onclick=\"window.location.href='categoria.php?action=new'\">Inserir Categoria</button>";
+        echo "<button type='submit' onclick=\"window.location.href='categoria.php?action=new'\">Inserir Categoria</button>";
         echo "<h3>Lista de Categorias</h3>";
         echo "<table border='1'>";
         echo "<tr><th>Nome</th><th>Descrição</th><th>Logo</th><th>Ações</th></tr>";
@@ -50,24 +50,24 @@ class CategoriaView
     public function exibirFormularioEdicao($categoria)
     {
         echo "
-            <h2 class='subtitle'>Editar Categoria</h2>
-            <form action='categoria.php' method='post' enctype='multipart/form-data' class='categoria-form'>
+            <h2>Editar Categoria</h2>
+            <form action='categoria.php' method='post' enctype='multipart/form-data'>
                 <input type='hidden' name='action' value='edit'>
                 <input type='hidden' name='id' value='{$categoria->getId()}'>
                
-                <div class='form-group'>
+                <div >
                     <label for='nome'>Nome:</label>
-                    <input type='text' id='nome' name='nome' class='form-control' required value='{$categoria->getNome()}'>
+                    <input type='text' id='nome' name='nome' required value='{$categoria->getNome()}'>
                 </div>
-                <div class='form-group'>
+                <div >
                     <label for='descricao'>Descrição:</label>
-                    <textarea id='descricao' name='descricao' class='form-control' required>{$categoria->getDescricao()}</textarea>
+                    <textarea id='descricao' name='descricao' required>{$categoria->getDescricao()}</textarea>
                 </div>
-                <div class='form-group'>
+                <div >
                     <label for='logo'>Logo:</label>
-                    <input type='file' id='logo' name='logo' class='form-control' accept='image/*' value='{$categoria->getLogo()}'>
+                    <input type='file' id='logo' name='logo' accept='image/*' value='{$categoria->getLogo()}'>
                 </div>
-                <button type='submit' class='btn btn-primary'>Atualizar</button>
+                <button type='submit'>Atualizar</button>
             </form>
         ";
     }

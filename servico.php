@@ -9,7 +9,7 @@ include_once 'app/controllers/EmpresaController.php';
 include_once 'includes/header.php';
 
 ?>
-<div class="title">
+<div>
     <h1>Serviços</h1>
 </div>
 

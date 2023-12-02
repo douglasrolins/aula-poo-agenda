@@ -16,29 +16,29 @@ class ServicoView
     {
         // HTML para o formulário de cadastro de serviço
         echo "
-        <h3 class='subtitle'>Novo Serviço</h3>
-        <form action='servico.php' method='post' enctype='multipart/form-data' class='categoria-form'>
+        <h3>Novo Serviço</h3>
+        <form action='servico.php' method='post' enctype='multipart/form-data'>
             <input type='hidden' name='action' value='new'>
-            <div class='form-group'>
+            <div>
                 <label for='nome'>Nome:</label>
-                <input type='text' id='nome' name='nome' class='form-control' required>
+                <input type='text' id='nome' name='nome' required>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='logo'>Logo:</label>
-                <input type='file' id='logo' name='logo' class='form-control' accept='image/*'>
+                <input type='file' id='logo' name='logo' accept='image/*'>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='valor'>Preço:</label>
-                <input type='number' id='valor' name='valor' class='form-control' required'>
+                <input type='number' id='valor' name='valor' required'>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='tempo'>Tempo:</label>
-                <input type='number' id='tempo' name='tempo' class='form-control' required>
+                <input type='number' id='tempo' name='tempo' required>
              </div>
 
-             <div class='form-group'>
+             <div>
              <label for='empresa_id'>Empresa:</label>
-             <select id='empresa_id' name='empresa_id' class='form-control' required>
+             <select id='empresa_id' name='empresa_id' required>
                  <option value=''>Selecione a empresa</option>";
         foreach ($empresas as $empresa) {
             echo "<option value='{$empresa->getId()}'>{$empresa->getNome()}</option>";
@@ -46,7 +46,7 @@ class ServicoView
         echo "
              </select>
              </div>
-            <button type='submit' class='btn btn-primary'>Cadastrar</button>
+            <button type='submit'>Cadastrar</button>
         </form>
         ";
     }
@@ -56,7 +56,7 @@ class ServicoView
     {
         
         echo "<div style='place-items: center; display: grid;' >";
-        echo "<button type='submit' class='btn btn-primary' onclick=\"window.location.href='servico.php?action=new'\">Inserir Serviço</button>";
+        echo "<button type='submit' onclick=\"window.location.href='servico.php?action=new'\">Inserir Serviço</button>";
         echo "<h3>Lista de Serviços</h3>";
         echo "<table border='1'>";
         echo "<tr><th>Nome</th><th>Logo</th><th>Preço</th><th>Tempo</th><th>Empresa</th><th>Ações</th></tr>";
@@ -77,37 +77,37 @@ class ServicoView
     public function exibirFormularioEdicao($servico, $empresas)
     {
         echo "
-            <h2 class='subtitle'>Editar Serviço</h2>
-            <form action='servico.php' method='post' enctype='multipart/form-data' class='categoria-form'>
+            <h2>Editar Serviço</h2>
+            <form action='servico.php' method='post' enctype='multipart/form-data'>
                 <input type='hidden' name='action' value='edit'>
                 <input type='hidden' name='id' value='{$servico->getId()}'>
                
-                <div class='form-group'>
+                <div>
                     <label for='nome'>Nome:</label>
-                    <input type='text' id='nome' name='nome' class='form-control' required value='{$servico->getNome()}'>
+                    <input type='text' id='nome' name='nome' required value='{$servico->getNome()}'>
                 </div>
-                <div class='form-group'>
+                <div >
                     <label for='logo_atual'>Logo atual:</label>
                     <img src={$this->base_url}{$servico->getLogo()} width=30px>
-                    <input type='text' id='logo_atual' name='logo_atual' class='form-control' readonly value='{$servico->getLogo()}'>
+                    <input type='text' id='logo_atual' name='logo_atual' readonly value='{$servico->getLogo()}'>
                 </div>
-                <div class='form-group'>
+                <div>
                     <label for='logo'>Escolher nova Logo:</label>
-                    <input type='file' id='logo' name='logo' class='form-control' accept='image/*'}'>
+                    <input type='file' id='logo' name='logo' accept='image/*'}'>
                 </div>
-                <div class='form-group'>
+                <div>
                     <label for='valor'>Valor:</label>
-                    <input type='number' id='valor' name='valor' class='form-control' required value='{$servico->getValor()}'>
+                    <input type='number' id='valor' name='valor' required value='{$servico->getValor()}'>
                 </div>
 
-                <div class='form-group'>
+                <div>
                     <label for='tempo'>Tempo:</label>
-                    <input type='number' id='tempo' name='tempo' class='form-control' required value='{$servico->getTempo()}'>
+                    <input type='number' id='tempo' name='tempo' required value='{$servico->getTempo()}'>
                 </div>
 
-                <div class='form-group'>
+                <div>
                 <label for='empresa_id'>Empresa:</label>
-                <select id='empresa_id' name='empresa_id' class='form-control' required>
+                <select id='empresa_id' name='empresa_id' required>
                     <option value=''>Selecione a empresa</option>";
         foreach ($empresas as $empresa) {
             $selected = ($empresa->getId() == $servico->getEmpresaId()) ? 'selected' : '';
@@ -117,7 +117,7 @@ class ServicoView
                 </select>
                 </div>
 
-                <button type='submit' class='btn btn-primary'>Atualizar</button>
+                <button type='submit'>Atualizar</button>
             </form>
         ";
     }

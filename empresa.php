@@ -7,7 +7,7 @@ include_once 'app/controllers/EmpresaController.php';
 include_once 'includes/header.php';
 
 ?>
-<div class="title"><h1>Empresas</h1></div>
+<div><h1>Empresas</h1></div>
 
 <?php
 // Instanciar classes

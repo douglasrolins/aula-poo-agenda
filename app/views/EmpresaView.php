@@ -7,26 +7,26 @@ class EmpresaView
     {
         // HTML para o formulário de cadastro de empresa
         echo "
-        <h3 class='subtitle'>Nova Empresa</h3>
-        <form action='empresa.php' method='post' enctype='multipart/form-data' class='categoria-form'>
+        <h3>Nova Empresa</h3>
+        <form action='empresa.php' method='post' enctype='multipart/form-data'>
             <input type='hidden' name='action' value='new'>
-            <div class='form-group'>
+            <div>
                 <label for='nome'>Nome:</label>
-                <input type='text' id='nome' name='nome' class='form-control' required>
+                <input type='text' id='nome' name='nome' required>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='cnpj'>CNPJ:</label>
-                <input type='text' id='cnpj' name='cnpj' class='form-control'>
+                <input type='text' id='cnpj' name='cnpj'>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='endereco'>Endereço:</label>
-                <input type='text' id='endereco' name='endereco' class='form-control'>
+                <input type='text' id='endereco' name='endereco'>
             </div>
-            <div class='form-group'>
+            <div>
                 <label for='telefone'>Telefone:</label>
-                <input type='text' id='telefone' name='telefone' class='form-control'>
-             </div>
-            <button type='submit' class='btn btn-primary'>Cadastrar</button>
+                <input type='text' id='telefone' name='telefone'>
+            </div>
+            <button type='submit'>Cadastrar</button>
         </form>
         ";
     }
@@ -36,7 +36,7 @@ class EmpresaView
     {
         $base_url="http://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/';
         echo "<div style='place-items: center; display: grid;' >";
-        echo "<button type='submit' class='btn btn-primary' onclick=\"window.location.href='empresa.php?action=new'\">Inserir Empresa</button>";
+        echo "<button type='submit' onclick=\"window.location.href='empresa.php?action=new'\">Inserir Empresa</button>";
         echo "<h3>Lista de Empresas</h3>";
         echo "<table border='1'>";
         echo "<tr><th>Nome</th><th>CNPJ</th><th>Endereço</th><th>Telefone</th><th>Ações</th></tr>";
@@ -61,25 +61,25 @@ class EmpresaView
                 <input type='hidden' name='action' value='edit'>
                 <input type='hidden' name='id' value='{$empresa->getId()}'>
                
-                <div class='form-group'>
+                <div>
                     <label for='nome'>Nome:</label>
-                    <input type='text' id='nome' name='nome' class='form-control' required value='{$empresa->getNome()}'>
+                    <input type='text' id='nome' name='nome' required value='{$empresa->getNome()}'>
                 </div>
-                <div class='form-group'>
+                <div>
                     <label for='cnpj'>CNPJ:</label>
-                    <input type='text' id='cnpj' name='cnpj' class='form-control' value='{$empresa->getCnpj()}'>
+                    <input type='text' id='cnpj' name='cnpj' value='{$empresa->getCnpj()}'>
                 </div>
-                <div class='form-group'>
+                <div>
                     <label for='endereco'>Endereço:</label>
-                    <input type='text' id='endereco' name='endereco' class='form-control' value='{$empresa->getEndereco()}'>
+                    <input type='text' id='endereco' name='endereco' value='{$empresa->getEndereco()}'>
                 </div>
 
-                <div class='form-group'>
+                <div >
                     <label for='telefone'>Telefone:</label>
-                    <input type='text' id='telefone' name='telefone' class='form-control' value='{$empresa->getTelefone()}'>
+                    <input type='text' id='telefone' name='telefone' value='{$empresa->getTelefone()}'>
                 </div>
 
-                <button type='submit' class='btn btn-primary'>Atualizar</button>
+                <button type='submit'>Atualizar</button>
             </form>
         ";
     }
