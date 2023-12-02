@@ -9,7 +9,9 @@ include_once 'app/controllers/EmpresaController.php';
 include_once 'includes/header.php';
 
 ?>
-<div class="title"><h1>Serviços</h1></div>
+<div class="title">
+    <h1>Serviços</h1>
+</div>
 
 <?php
 // Instanciar classes
@@ -23,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Captura dos dados do formulário
         $id = null;
         $nome = $_POST['nome'];
-        //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
         $valor = $_POST['valor'];
         $tempo = $_POST['tempo'];
         $empresa_id = $_POST['empresa_id'];
@@ -40,9 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['logo']['tmp_name'], $diretorioDestino . $nomeArquivo)) {
                 // O arquivo foi carregado com sucesso
                 //echo 'Imagem carregada com sucesso.';
-                $urlImagem = '/includes/img/' . $nomeArquivo; 
+                $urlImagem = '/includes/img/' . $nomeArquivo;
                 $logo = $urlImagem;
-                // Agora, você pode salvar o nome do arquivo no banco de dados ou realizar outras ações necessárias.
             } else {
                 // Ocorreu um erro ao mover o arquivo
                 echo 'Erro ao carregar a imagem.';
@@ -68,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Captura dos dados do formulário
         $id = $_POST['id']; // ID do serviço a ser atualizada
         $nome = $_POST['nome'];
-        //$logo = isset($_POST['logo']) ? $_POST['logo'] : null;  // Define logo como null caso esteja em branco
+        $logo_atual = $_POST['logo_atual'];
         $valor = $_POST['valor'];
         $tempo = $_POST['tempo'];
         $empresa_id = $_POST['empresa_id'];
 
         // Verifica se um arquivo de imagem foi enviado
-        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+        if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
             // Define o diretório de destino onde a imagem será salva
             $diretorioDestino = __DIR__ . '/includes/img/';
 
@@ -84,17 +84,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Move o arquivo para o diretório de destino
             if (move_uploaded_file($_FILES['logo']['tmp_name'], $diretorioDestino . $nomeArquivo)) {
                 // O arquivo foi carregado com sucesso
-                //echo 'Imagem carregada com sucesso.';
-                $urlImagem = '/includes/img/' . $nomeArquivo; 
+                $urlImagem = '/includes/img/' . $nomeArquivo;
                 $logo = $urlImagem;
-                // Agora, você pode salvar o nome do arquivo no banco de dados ou realizar outras ações necessárias.
             } else {
                 // Ocorreu um erro ao mover o arquivo
                 echo 'Erro ao carregar a imagem.';
             }
+        } elseif (!empty($logo_atual)) {
+            // Se o campo logo está vazio, mas logo_atual está preenchido, usa o valor de logo_atual
+            $logo = $logo_atual;
         } else {
-            // Nenhum arquivo de imagem enviado
-            //echo 'Nenhuma imagem foi enviada.';
+            // Nenhum arquivo de imagem enviado e logo_atual também está vazio
             $logo = null;
         }
 
@@ -126,7 +126,7 @@ switch ($action) {
             $servico = $servicoController->obterServicoPorId($servicoId);
             $empresaController = new EmpresaController();
             $empresas = $empresaController->obterTodasEmpresas();
-            $servicoView->exibirFormularioEdicao($servico,$empresas);
+            $servicoView->exibirFormularioEdicao($servico, $empresas);
         } else {
             echo "ID do serviço não especificado.";
         }

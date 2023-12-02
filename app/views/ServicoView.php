@@ -2,6 +2,15 @@
 
 class ServicoView
 {
+
+    private $base_url;
+
+    public function __construct()
+    {
+        $this->base_url = "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER["REQUEST_URI"] . '?') . '/';
+    }
+
+
     // Método para exibir o formulário de cadastro do serviço
     public function exibirFormularioCadastro($empresas)
     {
@@ -45,7 +54,7 @@ class ServicoView
     // Método para exibir a lista de serviços em uma tabela
     public function exibirListaServicos($servicos)
     {
-        $base_url = "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER["REQUEST_URI"] . '?') . '/';
+        
         echo "<div style='place-items: center; display: grid;' >";
         echo "<button type='submit' class='btn btn-primary' onclick=\"window.location.href='servico.php?action=new'\">Inserir Serviço</button>";
         echo "<h3>Lista de Serviços</h3>";
@@ -54,7 +63,7 @@ class ServicoView
         foreach ($servicos as $servico) {
             echo "<tr>";
             echo "<td>{$servico->getNome()}</td>";
-            echo "<td> <img src={$base_url}{$servico->getLogo()} width=30px> </td>";
+            echo "<td> <img src={$this->base_url}{$servico->getLogo()} width=30px> </td>";
             echo "<td>{$servico->getValor()}</td>";
             echo "<td>{$servico->getTempo()}</td>";
             echo "<td>{$servico->getEmpresaId()}</td>";
@@ -78,11 +87,16 @@ class ServicoView
                     <input type='text' id='nome' name='nome' class='form-control' required value='{$servico->getNome()}'>
                 </div>
                 <div class='form-group'>
-                    <label for='logo'>Logo:</label>
-                    <input type='file' id='logo' name='logo' class='form-control' accept='image/*' value='{$servico->getLogo()}'>
+                    <label for='logo_atual'>Logo atual:</label>
+                    <img src={$this->base_url}{$servico->getLogo()} width=30px>
+                    <input type='text' id='logo_atual' name='logo_atual' class='form-control' readonly value='{$servico->getLogo()}'>
                 </div>
                 <div class='form-group'>
-                    <label for='valor'>Preço:</label>
+                    <label for='logo'>Escolher nova Logo:</label>
+                    <input type='file' id='logo' name='logo' class='form-control' accept='image/*'}'>
+                </div>
+                <div class='form-group'>
+                    <label for='valor'>Valor:</label>
                     <input type='number' id='valor' name='valor' class='form-control' required value='{$servico->getValor()}'>
                 </div>
 
